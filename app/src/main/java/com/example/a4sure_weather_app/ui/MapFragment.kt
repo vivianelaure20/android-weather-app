@@ -1,6 +1,5 @@
 package com.example.a4sure_weather_app.ui
 
-import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
@@ -11,11 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.a4sure_weather_app.R
 import com.example.a4sure_weather_app.databinding.MapFragmentBinding
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
