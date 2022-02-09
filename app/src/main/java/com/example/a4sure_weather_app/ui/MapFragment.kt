@@ -19,7 +19,7 @@ import java.util.*
 class MapFragment : Fragment() {
     private var _binding: MapFragmentBinding? = null
     private val binding get() = _binding!!
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

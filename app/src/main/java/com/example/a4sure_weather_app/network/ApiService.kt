@@ -1,6 +1,5 @@
 package com.example.a4sure_weather_app.network
 
-
 import com.example.a4sure_weather_app.utils.Constants.API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Query
