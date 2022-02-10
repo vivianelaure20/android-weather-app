@@ -8,6 +8,7 @@ import com.example.a4sure_weather_app.database.WeatherDatabase.Companion.DATABAS
 import com.example.a4sure_weather_app.database.tables.CurrentEntity
 import com.example.a4sure_weather_app.database.tables.DailyEntity
 import com.example.a4sure_weather_app.database.tables.HourlyEntity
+import com.example.a4sure_weather_app.di.modules.AppModule.NewInstance
 
 @Database(version = DATABASE_VERSION, entities = [
         CurrentEntity::class,
@@ -22,7 +23,7 @@ abstract class WeatherDatabase: RoomDatabase() {
 
     companion object {
         const val DATABASE_VERSION = 1
-        private const val DATABASE_NAME = "weather_database"
+        const val DATABASE_NAME = "weather_database"
         private var instance: WeatherDatabase? = null
 
         @JvmStatic
@@ -37,13 +38,6 @@ abstract class WeatherDatabase: RoomDatabase() {
             return instance as WeatherDatabase
         }
 
-        @JvmStatic
-        private fun NewInstance(context: Context): WeatherDatabase {
-            val instance =
-                Room.databaseBuilder(context, WeatherDatabase::class.java, DATABASE_NAME)
-                    .fallbackToDestructiveMigration().build()
-            return instance
-        }
     }
 }
 

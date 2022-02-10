@@ -1,5 +1,8 @@
 package com.example.a4sure_weather_app.di.modules
 
+import android.content.Context
+import androidx.room.Room
+import com.example.a4sure_weather_app.database.WeatherDatabase
 import com.example.a4sure_weather_app.network.ApiService
 import com.example.a4sure_weather_app.utils.Constants.BASE_URL
 import com.google.gson.Gson
@@ -42,5 +45,15 @@ object AppModule {
 
     fun provideOpenWeatherApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @JvmStatic
+     fun NewInstance(context: Context): WeatherDatabase {
+        val instance =
+            Room.databaseBuilder(context, WeatherDatabase::class.java,
+                WeatherDatabase.DATABASE_NAME
+            )
+                .fallbackToDestructiveMigration().build()
+        return instance
     }
 }

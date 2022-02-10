@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "current_table")
 data class CurrentEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val cityID: Long,
     val date: Long,
     val sunrise: Long,
