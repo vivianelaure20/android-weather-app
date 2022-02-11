@@ -1,6 +1,5 @@
 package com.example.a4sure_weather_app.data.models
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Weather(
@@ -15,6 +14,7 @@ data class Weather(
     val sys: Sys,
     val timezone: Int,
     val visibility: Int,
-    val weather: List<WeatherX>,
+    @SerializedName("weather")
+    var weather: List<WeatherX>,
     val wind: Wind
 )

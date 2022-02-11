@@ -1,16 +1,23 @@
 package com.example.a4sure_weather_app.repository
 
-import android.content.Context
-import com.example.a4sure_weather_app.database.WeatherDatabase
-import com.example.a4sure_weather_app.database.WeatherDatabaseDao
-import com.example.a4sure_weather_app.database.tables.CurrentEntity
+import com.example.a4sure_weather_app.data.models.Weather
+import com.example.a4sure_weather_app.network.ApiService
+import com.example.a4sure_weather_app.viewmodel.DataResource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
-    private val weatherDao: WeatherDatabaseDao
-) {
-    fun getCurrentForecast(cityID: Long): Flow<List<CurrentEntity>> {
-        return weatherDao.getCurrentForecast(cityID)
+    private val apiService: ApiService
+    ) {
+    suspend fun getForecast(lat: Double, long: Double): Flow<DataResource<Weather>> = flow {
+        try{
+            val response = apiService.getWeather(lat, long)
+            println(response)
+            emit(DataResource.Success(response))
+        }catch (exception: Exception){
+            emit(DataResource.Error(exception,exception.message?:"Sorry, something went wrong, please try again"))
+        }
     }
 }
+
