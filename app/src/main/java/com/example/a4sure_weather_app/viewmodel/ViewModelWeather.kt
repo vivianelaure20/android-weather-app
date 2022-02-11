@@ -2,7 +2,7 @@ package com.example.a4sure_weather_app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.a4sure_weather_app.data.models.Weather
+import com.example.a4sure_weather_app.data.models.WeatherResponse
 import com.example.a4sure_weather_app.repository.WeatherRepository
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ViewModelWeather @Inject constructor(
     private val repository: WeatherRepository
     ) : ViewModel() {
-        private val _weatherRequestMutableStateFlow = MutableStateFlow<DataResource<Weather>>(DataResource.None)
+        private val _weatherRequestMutableStateFlow = MutableStateFlow<DataResource<WeatherResponse>>(DataResource.None)
          val weatherRequestStateFlow = _weatherRequestMutableStateFlow.asStateFlow()
 
     fun getForecast(latLng: LatLng) = viewModelScope.launch{
