@@ -6,11 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.a4sure_weather_app.R
 import com.example.a4sure_weather_app.databinding.MapFragmentBinding
 import com.example.a4sure_weather_app.viewmodel.DataResource
@@ -37,6 +41,8 @@ class MapFragment : Fragment() {
         _binding = MapFragmentBinding.inflate(layoutInflater, container, false)
         setupMap()
         return binding.root
+
+
     }
     private fun setupMap(){
         val supportMapFragment =
@@ -65,10 +71,25 @@ class MapFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observeGetForecastRequest()
+        observeGetForecastRequest(view)
+      val searchButton: Button = view.findViewById(R.id.search_button)
+        searchButton.setOnClickListener{
+            val searchLocation: EditText = view.findViewById(R.id.search_location)
+            val input = searchLocation.text.toString().trim()
+            println(input)
+            val bundle= Bundle()
+            bundle.putString("location", input)
+            val fragment = WeatherFragment()
+            fragment.arguments =bundle
+            fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, fragment)?.commit()
+        }
     }
 
-     private fun observeGetForecastRequest(){
+     private fun observeGetForecastRequest(view: View?){
+
+         val recycleView = view?.findViewById<RecyclerView>(R.id.recycleView)
+
+
          lifecycleScope.launch {
              viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                  viewModel.weatherRequestStateFlow.collectLatest {
@@ -81,6 +102,12 @@ class MapFragment : Fragment() {
                          }
                          is DataResource.Success ->{
                              Log.d("MapFragment", "Success${it.data}")
+                             recycleView?.apply{
+                                 layoutManager = LinearLayoutManager(activity)
+                                 adapter = WeatherListAdapter(it.data.list)
+
+
+                             }
                          }
                      }
                  }
