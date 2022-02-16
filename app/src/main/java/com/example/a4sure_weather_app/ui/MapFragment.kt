@@ -7,18 +7,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.a4sure_weather_app.R
 import com.example.a4sure_weather_app.databinding.MapFragmentBinding
+import com.example.a4sure_weather_app.viewmodel.DataResource
+import com.example.a4sure_weather_app.viewmodel.ViewModelWeather
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
     private var _binding: MapFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: ViewModelWeather by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +58,35 @@ class MapFragment : Fragment() {
                 googleMap.clear()
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 7f))
                 googleMap.addMarker(markerOptions)
+
+                viewModel.getForecast(it)
             }
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        observeGetForecastRequest()
+    }
+
+     private fun observeGetForecastRequest(){
+         lifecycleScope.launch {
+             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                 viewModel.weatherRequestStateFlow.collectLatest {
+                     when(it){
+                         is DataResource.Loading -> {
+                             Log.d("MapFragment", "Loading")
+                         }
+                         is DataResource.Error ->{
+                             Log.d("MapFragment", "Error${it.message}")
+                         }
+                         is DataResource.Success ->{
+                             Log.d("MapFragment", "Success${it.data}")
+                         }
+                     }
+                 }
+             }
+         }
+     }
 }
 
 

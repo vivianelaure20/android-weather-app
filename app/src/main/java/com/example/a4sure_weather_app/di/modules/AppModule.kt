@@ -40,6 +40,8 @@ object AppModule {
             .build()
     }
 
+    @Singleton
+    @Provides
     fun provideOpenWeatherApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
