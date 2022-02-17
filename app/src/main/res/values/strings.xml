@@ -8,4 +8,7 @@
     <string name="second_fragment">Second Fragment</string>
     <string name="first_fragment" />
     <string name="textview">TextView</string>
+    <string name="alert_message">Are you sure ?</string>
+    <string name="alert_positive">Yes</string>
+    <string name="alert_negative">Cancel</string>
 </resources>
