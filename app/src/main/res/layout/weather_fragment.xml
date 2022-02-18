@@ -1,102 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_shade_1"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
+
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@color/black_shade_1"-->
+<!--        android:id="@+id/imageBlack"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:text="@string/city"-->
+<!--        android:padding="20dp"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textAlignment="center"-->
+<!--        android:gravity="center"-->
+<!--        android:textColor="@color/white"/>-->
+
+<!--&lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;        android:id="@+id/latLong"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_marginTop="30dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:text="LatLong"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:padding="10dp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:textSize="15sp"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_below="@id/textView"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:textAlignment="center"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:gravity="center"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:textColor="@color/white"/>&ndash;&gt;-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:id="@+id/linearLayout"-->
+<!--        android:weightSum="5"/>-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/temperature"-->
+<!--        android:text="23"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:layout_below="@id/linearLayout"-->
+<!--        android:layout_margin="100dp"-->
+<!--        android:padding="5dp"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:textSize="70dp"/>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/temperature"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="2dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:src="@mipmap/ic_launcher" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/condition"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:textAlignment="center"-->
+<!--        android:text="Condition"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:layout_below="@id/imageView"/>-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="8dp"-->
+<!--        android:layout_marginBottom="18dp"-->
+<!--        android:text="Weather Forecast"-->
+<!--        android:layout_above="@id/recycleView"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textStyle="bold"/>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycleView"
+        android:layout_alignParentBottom="true"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+         tools:listitem="@layout/weather_list_items"
+       tools:itemCount="2"
+        />
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loading"
+        android:id="@+id/loader"
         android:layout_centerInParent="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/relativeLayout"
-        android:visibility="gone"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@color/black_shade_1"
-        android:id="@+id/imageBlack"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/city"
-        android:padding="20dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="@color/white"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout"
-        android:weightSum="5"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/temperature"
-        android:text="23"
-        android:textColor="@color/white"
-        android:layout_below="@id/linearLayout"
-        android:layout_margin="100dp"
-        android:padding="5dp"
-        android:gravity="center_horizontal"
-        android:textSize="70dp"/>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/temperature"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/condition"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:text="Condition"
-        android:textColor="@color/white"
-        android:layout_below="@id/imageView"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="18dp"
-        android:text="Weather Forecast"
-        android:layout_above="@id/recycleView"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recycleView"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

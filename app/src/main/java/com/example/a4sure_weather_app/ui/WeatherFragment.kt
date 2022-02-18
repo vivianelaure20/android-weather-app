@@ -9,16 +9,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.example.a4sure_weather_app.R
 import com.example.a4sure_weather_app.databinding.WeatherFragmentBinding
+import com.example.a4sure_weather_app.utils.Constants
 import com.example.a4sure_weather_app.viewmodel.DataResource
 import com.example.a4sure_weather_app.viewmodel.ViewModelWeather
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,27 +39,28 @@ class WeatherFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = WeatherFragmentBinding.inflate(layoutInflater, container, false)
-        val textView: TextView = binding.root?.findViewById(R.id.textView)
-        val args = this.arguments
-        val inputData = args?.get("location")
-        textView.text = inputData.toString()
-
+        weatherDataForecast()
         return binding.root
     }
 
+    private fun weatherDataForecast(){
+        val args = this.arguments
+        val latitudeData = args?.getDouble(Constants.LATITUDE)
+        val longitudeData = args?.getDouble(Constants.LONGITUDE)
+        viewModel.getForecast(latitudeData!!,longitudeData!!)
+//        addressTextView.text = addressData.toString()
+    }
 
-    private fun observeDataRequest(view: View){
-        val loader = view?.findViewById<ProgressBar>(R.id.loader)
+    private fun observeDataRequest(){
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.weatherRequestStateFlow.collectLatest {
                     when (it) {
                         is DataResource.Loading -> {
-                            loader.visibility = View.VISIBLE
-
+                            binding.loader.isVisible = false
                         }
                         is DataResource.Success -> {
-                            //make a loader here
+                            println("It is ${it.data.list[0].weather}")
                             recyclerAdapter.submitData(it.data.list[0].weather)
                         }
                         is DataResource.Error -> {
@@ -72,8 +73,8 @@ class WeatherFragment: Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observeDataRequest(view)
+    override fun onViewCreated(view: View,savedInstanceState: Bundle?) {
+        observeDataRequest()
         setupAdapter()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object :OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
@@ -85,18 +86,15 @@ class WeatherFragment: Fragment() {
         val builder = AlertDialog.Builder(requireContext()).setMessage(getString(R.string.alert_message))
             .setPositiveButton(getString(R.string.alert_positive)
             ) { _, _ ->
-                fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, MapFragment())
-                    ?.commit()
+                (requireActivity() as MainActivity).replaceFragment(MapFragment())
             }
             .setNegativeButton(getString(R.string.alert_negative)){ _, _ -> }
-
         val alertDialog = builder.create()
         alertDialog.show()
-
     }
 
     private fun setupAdapter(){
-        val recycleView = view?.findViewById<RecyclerView>(R.id.recycleView)
+        val recycleView = binding.recycleView
         recyclerAdapter = WeatherListAdapter(){}
         recycleView?.adapter = recyclerAdapter
     }

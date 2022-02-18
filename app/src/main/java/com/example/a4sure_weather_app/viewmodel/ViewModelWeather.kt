@@ -20,9 +20,9 @@ class ViewModelWeather @Inject constructor(
         private val _weatherRequestMutableStateFlow = MutableStateFlow<DataResource<WeatherResponse>>(DataResource.None)
          val weatherRequestStateFlow = _weatherRequestMutableStateFlow.asStateFlow()
 
-    fun getForecast(latLng: LatLng) = viewModelScope.launch{
+    fun getForecast(latitude: Double,longitude: Double) = viewModelScope.launch{
         _weatherRequestMutableStateFlow.value = DataResource.Loading
-        repository.getForecast(latLng.latitude,latLng.longitude).collect {
+        repository.getForecast(latitude,longitude).collect {
             _weatherRequestMutableStateFlow.value= it
         }
     }
