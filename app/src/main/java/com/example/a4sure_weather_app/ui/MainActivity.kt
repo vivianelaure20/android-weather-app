@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         replaceFragment(MapFragment())
     }
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction =  fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentContainer, fragment)
