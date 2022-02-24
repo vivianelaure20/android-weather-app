@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -15,7 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.RecyclerView
 import com.example.a4sure_weather_app.R
 import com.example.a4sure_weather_app.databinding.WeatherFragmentBinding
 import com.example.a4sure_weather_app.utils.Constants
@@ -48,7 +45,12 @@ class WeatherFragment: Fragment() {
         val latitudeData = args?.getDouble(Constants.LATITUDE)
         val longitudeData = args?.getDouble(Constants.LONGITUDE)
         viewModel.getForecast(latitudeData!!,longitudeData!!)
-//        addressTextView.text = addressData.toString()
+        val cityTextView = binding.city
+        val countryTextView = binding.country
+        val cityData = args?.get("city")
+        val countryData = args?.get("country")
+        cityTextView.text = cityData.toString()
+        countryTextView.text = countryData.toString()
     }
 
     private fun observeDataRequest(){
@@ -60,8 +62,11 @@ class WeatherFragment: Fragment() {
                             binding.loader.isVisible = false
                         }
                         is DataResource.Success -> {
-                            println("It is ${it.data.list[0].weather}")
-                            recyclerAdapter.submitData(it.data.list[0].weather)
+                            recyclerAdapter.submitData(it.data.list)
+                            binding.temperatureValue.text= it.data.list[0].main.temp.toString()
+                            binding.pressureValue.text= it.data.list[0].main.pressure.toString()
+                            binding.humidityValue.text= it.data.list[0].main.humidity.toString()
+                            binding.date.text= (it.data.list[0].dtTxt)
                         }
                         is DataResource.Error -> {
                             Toast.makeText(activity, "Error in getting data", Toast.LENGTH_SHORT)

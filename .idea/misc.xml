@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Felly/Desktop/4Sure/AndroidApps/internal_assessment/viviane-assessment/app/src/main/res/layout/activity_main.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/Felly/Desktop/4Sure/AndroidApps/internal_assessment/viviane-assessment/app/src/main/res/layout/map_fragment.xml" value="0.21666666666666667" />
+        <entry key="app/src/main/res/drawable/background_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/first_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
@@ -13,7 +14,7 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="app/src/main/res/layout/map_fragment.xml" value="0.28396739130434784" />
         <entry key="app/src/main/res/layout/second_fragment.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/weather_fragment.xml" value="0.3484375" />
+        <entry key="app/src/main/res/layout/weather_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/weather_list_items.xml" value="0.1" />
       </map>
     </option>

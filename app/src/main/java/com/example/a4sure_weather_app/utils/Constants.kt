@@ -5,5 +5,6 @@ object Constants {
     const val BASE_URL ="http://api.openweathermap.org"
     const val LATITUDE="latitude"
     const val LONGITUDE="longitude"
+    const val UNITS = "metric"
 
 }

@@ -4,15 +4,15 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a4sure_weather_app.R
-import com.example.a4sure_weather_app.data.models.WeatherX
+import com.example.a4sure_weather_app.data.models.Weather
+import com.example.a4sure_weather_app.databinding.WeatherListItemsBinding
 
-class WeatherListAdapter(onItems: (WeatherX)-> Unit) : RecyclerView.Adapter<WeatherListViewModel>() {
+class WeatherListAdapter(onItems: (Weather)-> Unit) : RecyclerView.Adapter<WeatherListViewHolder>() {
 
-    private val weatherList: MutableList<WeatherX> = mutableListOf()
+    private val weatherList: MutableList<Weather> = mutableListOf()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitData(weatherList: List<WeatherX>){
+    fun submitData(weatherList: List<Weather>){
         if( this.weatherList.isNotEmpty()){
             this.weatherList.clear()
         }
@@ -20,13 +20,14 @@ class WeatherListAdapter(onItems: (WeatherX)-> Unit) : RecyclerView.Adapter<Weat
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherListViewModel {
-        return WeatherListViewModel(LayoutInflater.from(parent.context).inflate(R.layout.weather_fragment, parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherListViewHolder {
+         val binding= WeatherListItemsBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+        return WeatherListViewHolder(binding)
     }
 
     override fun getItemCount(): Int = weatherList.size
 
-    override fun onBindViewHolder(holder: WeatherListViewModel, position: Int) {
-        holder.bind(weatherList.get(position))
+    override fun onBindViewHolder(holder: WeatherListViewHolder, position: Int) {
+        holder.bind(weatherList[position])
     }
 }

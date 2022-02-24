@@ -57,10 +57,14 @@ class MapFragment : Fragment() {
         }
     }
     private fun navigateToWeatherFragment(latLng: LatLng) {
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
         if((latLng.latitude != null ) || (latLng.longitude != null )){
             val bundle= Bundle()
             bundle.putDouble(Constants.LATITUDE, latLng.latitude)
             bundle.putDouble(Constants.LONGITUDE, latLng.longitude)
+            bundle.putString("city",address[0].locality)
+            bundle.putString("country",address[0].countryName)
             val fragment = WeatherFragment()
             fragment.arguments =bundle
             (requireActivity() as MainActivity).replaceFragment(fragment)
