@@ -59,7 +59,7 @@ class MapFragment : Fragment() {
                 googleMap.clear()
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 7f))
                 googleMap.addMarker(markerOptions)
-//                navigateToWeatherFragment(it)
+                navigateToWeatherFragment(it)
             }
         }
     }

@@ -6,5 +6,6 @@ object Constants {
     const val LATITUDE="latitude"
     const val LONGITUDE="longitude"
     const val UNITS = "metric"
+    const val WEATHER_DETAILS= "WeatherDetails"
 
 }

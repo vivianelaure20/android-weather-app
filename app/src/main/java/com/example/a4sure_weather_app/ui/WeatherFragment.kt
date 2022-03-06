@@ -1,6 +1,7 @@
 package com.example.a4sure_weather_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.a4sure_weather_app.R
+import com.example.a4sure_weather_app.data.models.Weather
+import com.example.a4sure_weather_app.data.models.WeatherDetailsDTO
 import com.example.a4sure_weather_app.databinding.WeatherFragmentBinding
 import com.example.a4sure_weather_app.utils.Constants
 import com.example.a4sure_weather_app.viewmodel.DataResource
@@ -63,9 +66,9 @@ class WeatherFragment: Fragment() {
                         }
                         is DataResource.Success -> {
                             recyclerAdapter.submitData(it.data.list)
-                            binding.temperatureValue.text= it.data.list[0].main.temp.toString()
-                            binding.pressureValue.text= it.data.list[0].main.pressure.toString()
-                            binding.humidityValue.text= it.data.list[0].main.humidity.toString()
+//                            binding.temperatureValue.text= it.data.list[0].main.temp.toString()
+//                            binding.pressureValue.text= it.data.list[0].main.pressure.toString()
+//                            binding.humidityValue.text= it.data.list[0].main.humidity.toString()
                             binding.date.text= (it.data.list[0].dtTxt)
                         }
                         is DataResource.Error -> {
@@ -100,7 +103,22 @@ class WeatherFragment: Fragment() {
 
     private fun setupAdapter(){
         val recycleView = binding.recycleView
-        recyclerAdapter = WeatherListAdapter(){}
+        recyclerAdapter= WeatherListAdapter{
+            val bundle = Bundle()
+            bundle.putSerializable(Constants.WEATHER_DETAILS, WeatherDetailsDTO(
+                it.id,
+                it.main.feelsLike,
+                it.main.seaLevel,
+                it.main.humidity,
+                it.main.pressure,
+                it.main.temp,
+                it.weather[0].icon,
+                it.weather[0].description
+            ))
+            val weatherDetailsFragment = WeatherDetailsFragment()
+            weatherDetailsFragment.arguments =bundle
+            (requireActivity() as MainActivity).replaceFragment(weatherDetailsFragment)
+        }
         recycleView?.adapter = recyclerAdapter
     }
 }

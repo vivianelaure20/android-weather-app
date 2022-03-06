@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.a4sure_weather_app.data.models.Main
 import com.example.a4sure_weather_app.data.models.Weather
 import com.example.a4sure_weather_app.databinding.WeatherListItemsBinding
 
-class WeatherListAdapter(onItems: (Weather)-> Unit) : RecyclerView.Adapter<WeatherListViewHolder>() {
-
-    private val weatherList: MutableList<Weather> = mutableListOf()
+class WeatherListAdapter(
+     private val onItemsClick:(Weather)-> Unit): RecyclerView.Adapter<WeatherListViewHolder>() {
+     private val weatherList: MutableList<Weather> = mutableListOf()
 
     @SuppressLint("NotifyDataSetChanged")
     fun submitData(weatherList: List<Weather>){
@@ -22,7 +23,7 @@ class WeatherListAdapter(onItems: (Weather)-> Unit) : RecyclerView.Adapter<Weath
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherListViewHolder {
          val binding= WeatherListItemsBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-        return WeatherListViewHolder(binding)
+        return WeatherListViewHolder(binding,onItemsClick)
     }
 
     override fun getItemCount(): Int = weatherList.size

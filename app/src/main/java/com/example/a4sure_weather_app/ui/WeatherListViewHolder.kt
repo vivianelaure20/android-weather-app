@@ -3,9 +3,13 @@ package com.example.a4sure_weather_app.ui
 import androidx.recyclerview.widget.RecyclerView
 import com.example.a4sure_weather_app.data.models.Weather
 import com.example.a4sure_weather_app.databinding.WeatherListItemsBinding
+import com.example.a4sure_weather_app.utils.loadImage
 import com.squareup.picasso.Picasso
 
-class WeatherListViewHolder(private val binding: WeatherListItemsBinding) : RecyclerView.ViewHolder(binding.root) {
+class WeatherListViewHolder(
+    private val binding: WeatherListItemsBinding,
+    private val onItemsClick: (Weather)-> Unit)
+    : RecyclerView.ViewHolder(binding.root){
 
     private val main = binding.main
     private val icon = binding.icon
@@ -14,10 +18,12 @@ class WeatherListViewHolder(private val binding: WeatherListItemsBinding) : Recy
     fun bind(get: Weather) {
         main.text = get.weather[0].main
          val url = get.weather[0].icon
-        Picasso.get()
-            .load("http://openweathermap.org/img/wn/$url@2x.png")
-            .into(icon)
+        icon.loadImage(url)
          description.text = get.weather[0].description
-    }
 
+        binding.root.setOnClickListener{
+            onItemsClick.invoke(get)
+        }
+    }
 }
+
