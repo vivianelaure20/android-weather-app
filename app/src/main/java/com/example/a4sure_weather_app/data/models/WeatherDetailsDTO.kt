@@ -1,6 +1,5 @@
 package com.example.a4sure_weather_app.data.models
 
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class WeatherDetailsDTO(
@@ -12,4 +11,6 @@ data class WeatherDetailsDTO(
     val temp: Double,
     val iconUrl: String,
     val description: String,
+    val lat: Double,
+    val long: Double,
 ): Serializable

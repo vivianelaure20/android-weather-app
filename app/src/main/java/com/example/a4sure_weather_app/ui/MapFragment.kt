@@ -77,7 +77,6 @@ class MapFragment : Fragment() {
             (requireActivity() as MainActivity).replaceFragment(fragment)
         }
     }
-
      fun searchLocation(view: View){
         val search = binding.search
          val searchButton = binding.searchButton

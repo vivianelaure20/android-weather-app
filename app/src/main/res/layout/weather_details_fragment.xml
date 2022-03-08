@@ -10,28 +10,28 @@
     <androidx.cardview.widget.CardView
         android:layout_width="370dp"
         android:layout_height="480dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         app:cardBackgroundColor="#237CC1"
         app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="125dp"
-            android:layout_height="105dp"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
             android:layout_marginStart="125dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="25dp"
             android:textAlignment="center" />
-
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="90dp"
             android:text="Description"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -42,10 +42,8 @@
             android:id="@+id/temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/date"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
             android:text="13"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -169,6 +167,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/hours"
         android:layout_width="347dp"
@@ -180,8 +179,35 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.814" />
+        app:layout_constraintVertical_bias="0.747" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerHoursView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hours"
+        app:layout_constraintVertical_bias="1.0"
+        tools:itemCount="2"
+        tools:layout_editor_absoluteX="16dp"
+        tools:listitem="@layout/weather_hours_list_items" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loaderHours"
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

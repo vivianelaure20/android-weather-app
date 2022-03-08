@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.a4sure_weather_app.data.models.Weather
 import com.example.a4sure_weather_app.databinding.WeatherListItemsBinding
 import com.example.a4sure_weather_app.utils.loadImage
-import com.squareup.picasso.Picasso
 
 class WeatherListViewHolder(
     private val binding: WeatherListItemsBinding,

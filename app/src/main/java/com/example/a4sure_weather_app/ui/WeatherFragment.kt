@@ -1,7 +1,6 @@
 package com.example.a4sure_weather_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.a4sure_weather_app.R
-import com.example.a4sure_weather_app.data.models.Weather
 import com.example.a4sure_weather_app.data.models.WeatherDetailsDTO
 import com.example.a4sure_weather_app.databinding.WeatherFragmentBinding
 import com.example.a4sure_weather_app.utils.Constants
@@ -27,11 +25,12 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WeatherFragment: Fragment() {
-
     private var _binding: WeatherFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerAdapter: WeatherListAdapter
     private val viewModel: ViewModelWeather by viewModels()
+    private var latitudeData: Double? = 0.0
+    private var longitudeData: Double? = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +44,8 @@ class WeatherFragment: Fragment() {
 
     private fun weatherDataForecast(){
         val args = this.arguments
-        val latitudeData = args?.getDouble(Constants.LATITUDE)
-        val longitudeData = args?.getDouble(Constants.LONGITUDE)
+         latitudeData = args?.getDouble(Constants.LATITUDE)
+         longitudeData = args?.getDouble(Constants.LONGITUDE)
         viewModel.getForecast(latitudeData!!,longitudeData!!)
         val cityTextView = binding.city
         val countryTextView = binding.country
@@ -66,10 +65,6 @@ class WeatherFragment: Fragment() {
                         }
                         is DataResource.Success -> {
                             recyclerAdapter.submitData(it.data.list)
-//                            binding.temperatureValue.text= it.data.list[0].main.temp.toString()
-//                            binding.pressureValue.text= it.data.list[0].main.pressure.toString()
-//                            binding.humidityValue.text= it.data.list[0].main.humidity.toString()
-                            binding.date.text= (it.data.list[0].dtTxt)
                         }
                         is DataResource.Error -> {
                             Toast.makeText(activity, "Error in getting data", Toast.LENGTH_SHORT)
@@ -113,7 +108,9 @@ class WeatherFragment: Fragment() {
                 it.main.pressure,
                 it.main.temp,
                 it.weather[0].icon,
-                it.weather[0].description
+                it.weather[0].description,
+                latitudeData!!,
+                longitudeData!!,
             ))
             val weatherDetailsFragment = WeatherDetailsFragment()
             weatherDetailsFragment.arguments =bundle

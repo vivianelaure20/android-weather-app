@@ -15,8 +15,9 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="app/src/main/res/layout/map_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/second_fragment.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/weather_details_fragment.xml" value="0.25569620253164554" />
-        <entry key="app/src/main/res/layout/weather_fragment.xml" value="0.13496932515337423" />
+        <entry key="app/src/main/res/layout/weather_details_fragment.xml" value="0.3207207207207207" />
+        <entry key="app/src/main/res/layout/weather_fragment.xml" value="0.18910279963460028" />
+        <entry key="app/src/main/res/layout/weather_hours_list_items.xml" value="0.46593004902377566" />
         <entry key="app/src/main/res/layout/weather_list_items.xml" value="0.1" />
       </map>
     </option>
