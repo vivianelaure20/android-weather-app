@@ -3,8 +3,10 @@ package com.example.a4sure_weather_app.ui
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.a4sure_weather_app.data.models.Main
 import com.example.a4sure_weather_app.data.models.Weather
 import com.example.a4sure_weather_app.databinding.WeatherListItemsBinding
 

@@ -1,33 +1,26 @@
 package com.example.a4sure_weather_app.ui
 
-import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.a4sure_weather_app.R
 import com.example.a4sure_weather_app.databinding.MapFragmentBinding
 import com.example.a4sure_weather_app.utils.Constants
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
 import java.util.*
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
     private var _binding: MapFragmentBinding? = null
     private val binding get() = _binding!!
-    private var mMap: GoogleMap? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,31 +70,6 @@ class MapFragment : Fragment() {
             (requireActivity() as MainActivity).replaceFragment(fragment)
         }
     }
-     fun searchLocation(view: View){
-        val search = binding.search
-         val searchButton = binding.searchButton
-         searchButton.setOnClickListener {
-             var locationSearch: String = search.text.toString().trim()
-             var addressList: List<Address>? = null
-             if (locationSearch ==null || locationSearch == ""){
-                 Toast.makeText(activity, "Provide location", Toast.LENGTH_SHORT)
-                     .show()
-             }else {
-                 val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                 try {
-                     addressList = geocoder.getFromLocationName(locationSearch, 1)
-                 } catch (e: IOException) {
-                     e.printStackTrace()
-                 }
-
-             }
-            val address =  addressList!![0]
-            val latLong= LatLng(address.latitude, address.longitude)
-            mMap!!.addMarker(MarkerOptions().position(latLong).title(locationSearch))
-            mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLong))
-        }
-    }
-
 }
 
 
